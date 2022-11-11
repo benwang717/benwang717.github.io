@@ -182,8 +182,8 @@
 <p>以上，我们是通过编译器自动生成了一次对有参函数变量的浅拷贝。</p>
 <p>但是，有时候我们会遇到一些问题。</p>
 <hr>
-<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><p>首先要知道，堆区：由****程序员****分配释放，若程序员不释放，程序结束后由操作系统回收（运行期间你不管，它就不释放。运行结束就给他回收掉）</p>
-<p>在C++中主要利用****new****在堆区开辟内存</p>
+<h2 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h2><p>首先要知道，堆区：由<strong>程序员</strong>分配释放，若程序员不释放，程序结束后由操作系统回收（运行期间你不管，它就不释放。运行结束就给他回收掉）</p>
+<p>在C++中主要利用<strong>new</strong>在堆区开辟内存</p>
 <p>回到刚刚的代码。可以看到，在Team这个类当中，只有一组参数，那就是 int m_A；m_A是整形变量。那么如果我们的参数中含有指针变量呢？如果含有指针变量，我们的函数还可以按照刚刚浅拷贝那样，由编译器即可自动完成拷贝吗？</p>
 <p>实际上是行不通的。我们需要从浅拷贝的机制来分析。</p>
 <p>在编译器中简单的套用有参变量去传递参数的值的时候(浅拷贝)，实质上就是一种值的传递。而当我们类中的参数含有指针变量，且指针的变量是在堆区开辟的空间，且我们选择手动在最后类的析构函数中释放这段开辟的空间的时候，编译器就会报错。这是为什么？</p>
@@ -208,7 +208,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">深拷贝 浅拷贝 C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">深拷贝</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">浅拷贝， C++</a>
         		</li>
       		
 		</ul>
@@ -439,7 +443,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">深拷贝 浅拷贝 C++</a>
+                <a href="javascript:void(0)" class="js-tag color4">深拷贝</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">浅拷贝， C++</a>
               </li>
             
             <div class="clearfix"></div>
