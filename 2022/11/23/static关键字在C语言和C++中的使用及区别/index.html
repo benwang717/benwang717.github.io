@@ -6,13 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: 浅拷贝 | Ben</title>
+  <title>static关键字在C语言和C++中的使用及区别 | Ben</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Ben">
-<meta property="og:url" content="http://example.com/tags/%E6%B5%85%E6%8B%B7%E8%B4%9D/index.html">
+  <meta name="description" content="一、总述由于C++兼容C语言，所以static在C语言中的用法对于C++是同样适用的。两者的不同就是C++中多出来的特性，而这些特性与C++面线对象的特性有关。 二、static在C语言中的作用（C++通用）1、修饰变量a、修饰全局变量（全局变量与静态全局变量的对比）​	修饰全局变量：作用域仅限于变量被定义的文件中，其他文件即使用extern声明也无法直接使用此变量，extern用法详见这里。（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="static关键字在C语言和C++中的使用及区别">
+<meta property="og:url" content="http://example.com/2022/11/23/static%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8C%E8%AF%AD%E8%A8%80%E5%92%8CC++%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8%E5%8F%8A%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="Ben">
+<meta property="og:description" content="一、总述由于C++兼容C语言，所以static在C语言中的用法对于C++是同样适用的。两者的不同就是C++中多出来的特性，而这些特性与C++面线对象的特性有关。 二、static在C语言中的作用（C++通用）1、修饰变量a、修饰全局变量（全局变量与静态全局变量的对比）​	修饰全局变量：作用域仅限于变量被定义的文件中，其他文件即使用extern声明也无法直接使用此变量，extern用法详见这里。（">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-11-23T11:12:24.000Z">
+<meta property="article:modified_time" content="2022-11-23T14:40:43.354Z">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="static">
+<meta property="article:tag" content="C">
+<meta property="article:tag" content="面试题">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Ben" type="application/atom+xml">
@@ -149,68 +157,188 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-static关键字在C语言和C++中的使用及区别" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2022" class="archive-year">2022</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2022/11/11/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D/" class="archive-article-date">
-  	<time datetime="2022-11-11T09:01:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2022/11/11/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D/">深拷贝和浅拷贝</a>
+    <h1 class="article-title" itemprop="name">
+      static关键字在C语言和C++中的使用及区别
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/11/23/static%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8C%E8%AF%AD%E8%A8%80%E5%92%8CC++%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8%E5%8F%8A%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+  	<time datetime="2022-11-23T11:12:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="一、总述"><a href="#一、总述" class="headerlink" title="一、总述"></a>一、总述</h2><p>由于C++兼容C语言，所以<strong>static在C语言中的用法对于C++是同样适用的</strong>。两者的不同就是C++中多出来的特性，而这些特性与C++面线对象的特性有关。</p>
+<h2 id="二、static在C语言中的作用（C-通用）"><a href="#二、static在C语言中的作用（C-通用）" class="headerlink" title="二、static在C语言中的作用（C++通用）"></a>二、static在C语言中的作用（C++通用）</h2><h3 id="1、修饰变量"><a href="#1、修饰变量" class="headerlink" title="1、修饰变量"></a>1、修饰变量</h3><h4 id="a、修饰全局变量（全局变量与静态全局变量的对比）"><a href="#a、修饰全局变量（全局变量与静态全局变量的对比）" class="headerlink" title="a、修饰全局变量（全局变量与静态全局变量的对比）"></a>a、修饰全局变量（全局变量与静态全局变量的对比）</h4><p>​	修饰全局变量：作用域仅限于变量被定义的文件中，其他文件即使用extern声明也无法直接使用此变量，extern用法详见这里。（可以间接访问，即通过本文件的非static函数返回static变量的值，类似于C++类中的private变量外界没有权限访问，但是可以通过public函数返回private变量的值）。<br>​	对比：全局变量本身就是静态存储方式， 静态全局变量当然也是静态存储方式。 这两者在存储方式上并无不同，且都只初始化一次，但静态全局变量对其他文件不可见，全局变量是可见的。<br>​	总结：把全局变量改变为静态变量后是改变了它的作用域，限制了它的使用范围。  </p>
+<h4 id="b、修饰局部变量"><a href="#b、修饰局部变量" class="headerlink" title="b、修饰局部变量"></a>b、修饰局部变量</h4><p>​	修饰局部变量：在函数内定义的局部变量被修饰，可以延长变生命周期，但是作用域不变，只初始化一次。<br>​	对比：普通局部变量定义后，出了作用域就会被释放，静态局部变量生命周期到程序结束才结束。<br>​	总结：把局部变量改变为静态变量后是改变了它的存储方式，让静态局部变量出了作用域依然存在，到程序结束，生命周期才结束。</p>
+<h3 id="2、修饰函数"><a href="#2、修饰函数" class="headerlink" title="2、修饰函数"></a>2、修饰函数</h3><p>和全局变量一样，函数的定义和声明默认情况下是extern的，但静态函数只是在声明它的文件当中可见，不能被其他文件所用。</p>
+<h2 id="三、static在C-中的作用"><a href="#三、static在C-中的作用" class="headerlink" title="三、static在C++中的作用"></a>三、static在C++中的作用</h2><p>C+ +重用了这个关键字，并赋予它与前面不同的含义：表示属于一个类而不是属于此类的任何特定对象的变量和函数。</p>
+<h3 id="1、静态数据成员"><a href="#1、静态数据成员" class="headerlink" title="1、静态数据成员"></a>1、静态数据成员</h3><p>静态数据成员是属于整个类的，而不是属于某个对象。即不管实例多少个对象，它们都公用一个静态数据成员（如：使用静态数据成员统计类已经实例化了多少对象）。</p>
+<p>在c++中，普通数据成员在构造函数的函数体或初始化表中初始化；常量数据成员(const int a )必须在构造函数的初始化表中初始化（const对象或引用只能初始化但是不能赋值。构造函数的函数体内只能做赋值而不是初始化）；而静态数据成员(static int b )则必须在类外初始化（int 类名::b&#x3D;100），这是因为静态数据成员不属于任何一个对象，而是属于整个类的。</p>
+<h3 id="2、静态成员函数"><a href="#2、静态成员函数" class="headerlink" title="2、静态成员函数"></a>2、静态成员函数</h3><p>静态成员函数是属于整个类的，而不是属于某个对象。静态成员函数可以被该类的所有对象直接访问；静态成员函数本身只能访问静态成员，不可以访问非静态成员。</p>
+<h2 id="四、常见面试题–为什么static变量值只初始化一次？"><a href="#四、常见面试题–为什么static变量值只初始化一次？" class="headerlink" title="四、常见面试题–为什么static变量值只初始化一次？"></a>四、常见面试题–为什么static变量值只初始化一次？</h2><p>对于所有的对象（不仅仅是静态对象），初始化都只有一次，初始化后，一直都没有被销毁&#x2F;释放，都会保存在内存区域中，所以不会再次初始化。存放在静态区的变量的生命周期与整个程序“同生死、共存亡”，所以它只需初始化一次。而auto变量，即自动变量，由于它存放在栈区，一旦函数调用结束，就会立刻被销毁。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢昂！<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">深拷贝</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">浅拷贝</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">static</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">C</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">面试题</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/11/23/static%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8C%E8%AF%AD%E8%A8%80%E5%92%8CC++%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8%E5%8F%8A%E5%8C%BA%E5%88%AB/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2022/11/11/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">深拷贝和浅拷贝</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -233,9 +361,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

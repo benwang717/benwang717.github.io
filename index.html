@@ -54,8 +54,6 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/%E6%89%80%E6%9C%89%E6%96%87%E7%AB%A0">innerArchive</a></li>
-	        
 				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
 	        
 			</ul>
@@ -114,8 +112,6 @@
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
@@ -133,14 +129,12 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 70%">
+				<ul style="width: 50%">
 				
 				
-					<li style="width: 33.333333333333336%"><a href="/">主页</a></li>
+					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 33.333333333333336%"><a href="/%E6%89%80%E6%9C%89%E6%96%87%E7%AB%A0">innerArchive</a></li>
-		        
-					<li style="width: 33.333333333333336%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+					<li style="width: 50%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
 		        
 				</ul>
 			</nav>
@@ -156,6 +150,101 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-static关键字在C语言和C++中的使用及区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/23/static%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8C%E8%AF%AD%E8%A8%80%E5%92%8CC++%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8%E5%8F%8A%E5%8C%BA%E5%88%AB/">static关键字在C语言和C++中的使用及区别</a>
+    </h1>
+  
+
+        
+        <a href="/2022/11/23/static%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8C%E8%AF%AD%E8%A8%80%E5%92%8CC++%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8%E5%8F%8A%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+  	<time datetime="2022-11-23T11:12:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="一、总述"><a href="#一、总述" class="headerlink" title="一、总述"></a>一、总述</h2><p>由于C++兼容C语言，所以<strong>static在C语言中的用法对于C++是同样适用的</strong>。两者的不同就是C++中多出来的特性，而这些特性与C++面线对象的特性有关。</p>
+<h2 id="二、static在C语言中的作用（C-通用）"><a href="#二、static在C语言中的作用（C-通用）" class="headerlink" title="二、static在C语言中的作用（C++通用）"></a>二、static在C语言中的作用（C++通用）</h2><h3 id="1、修饰变量"><a href="#1、修饰变量" class="headerlink" title="1、修饰变量"></a>1、修饰变量</h3><h4 id="a、修饰全局变量（全局变量与静态全局变量的对比）"><a href="#a、修饰全局变量（全局变量与静态全局变量的对比）" class="headerlink" title="a、修饰全局变量（全局变量与静态全局变量的对比）"></a>a、修饰全局变量（全局变量与静态全局变量的对比）</h4><p>​	修饰全局变量：作用域仅限于变量被定义的文件中，其他文件即使用extern声明也无法直接使用此变量，extern用法详见这里。（可以间接访问，即通过本文件的非static函数返回static变量的值，类似于C++类中的private变量外界没有权限访问，但是可以通过public函数返回private变量的值）。<br>​	对比：全局变量本身就是静态存储方式， 静态全局变量当然也是静态存储方式。 这两者在存储方式上并无不同，且都只初始化一次，但静态全局变量对其他文件不可见，全局变量是可见的。<br>​	总结：把全局变量改变为静态变量后是改变了它的作用域，限制了它的使用范围。  </p>
+<h4 id="b、修饰局部变量"><a href="#b、修饰局部变量" class="headerlink" title="b、修饰局部变量"></a>b、修饰局部变量</h4><p>​	修饰局部变量：在函数内定义的局部变量被修饰，可以延长变生命周期，但是作用域不变，只初始化一次。<br>​	对比：普通局部变量定义后，出了作用域就会被释放，静态局部变量生命周期到程序结束才结束。<br>​	总结：把局部变量改变为静态变量后是改变了它的存储方式，让静态局部变量出了作用域依然存在，到程序结束，生命周期才结束。</p>
+<h3 id="2、修饰函数"><a href="#2、修饰函数" class="headerlink" title="2、修饰函数"></a>2、修饰函数</h3><p>和全局变量一样，函数的定义和声明默认情况下是extern的，但静态函数只是在声明它的文件当中可见，不能被其他文件所用。</p>
+<h2 id="三、static在C-中的作用"><a href="#三、static在C-中的作用" class="headerlink" title="三、static在C++中的作用"></a>三、static在C++中的作用</h2><p>C+ +重用了这个关键字，并赋予它与前面不同的含义：表示属于一个类而不是属于此类的任何特定对象的变量和函数。</p>
+<h3 id="1、静态数据成员"><a href="#1、静态数据成员" class="headerlink" title="1、静态数据成员"></a>1、静态数据成员</h3><p>静态数据成员是属于整个类的，而不是属于某个对象。即不管实例多少个对象，它们都公用一个静态数据成员（如：使用静态数据成员统计类已经实例化了多少对象）。</p>
+<p>在c++中，普通数据成员在构造函数的函数体或初始化表中初始化；常量数据成员(const int a )必须在构造函数的初始化表中初始化（const对象或引用只能初始化但是不能赋值。构造函数的函数体内只能做赋值而不是初始化）；而静态数据成员(static int b )则必须在类外初始化（int 类名::b&#x3D;100），这是因为静态数据成员不属于任何一个对象，而是属于整个类的。</p>
+<h3 id="2、静态成员函数"><a href="#2、静态成员函数" class="headerlink" title="2、静态成员函数"></a>2、静态成员函数</h3><p>静态成员函数是属于整个类的，而不是属于某个对象。静态成员函数可以被该类的所有对象直接访问；静态成员函数本身只能访问静态成员，不可以访问非静态成员。</p>
+<h2 id="四、常见面试题–为什么static变量值只初始化一次？"><a href="#四、常见面试题–为什么static变量值只初始化一次？" class="headerlink" title="四、常见面试题–为什么static变量值只初始化一次？"></a>四、常见面试题–为什么static变量值只初始化一次？</h2><p>对于所有的对象（不仅仅是静态对象），初始化都只有一次，初始化后，一直都没有被销毁&#x2F;释放，都会保存在内存区域中，所以不会再次初始化。存放在静态区的变量的生命周期与整个程序“同生死、共存亡”，所以它只需初始化一次。而auto变量，即自动变量，由于它存放在栈区，一旦函数调用结束，就会立刻被销毁。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">static</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">C</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">面试题</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2022/11/23/static%E5%85%B3%E9%94%AE%E5%AD%97%E5%9C%A8C%E8%AF%AD%E8%A8%80%E5%92%8CC++%E4%B8%AD%E7%9A%84%E4%BD%BF%E7%94%A8%E5%8F%8A%E5%8C%BA%E5%88%AB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-深拷贝和浅拷贝" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -462,6 +551,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">static</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">C</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
             
             <div class="clearfix"></div>
