@@ -31,7 +31,7 @@
       <link href="/2023/08/04/%E9%81%87%E5%88%B0%E7%9A%84%E6%96%B0%E7%9F%A5%E8%AF%86%E7%82%B9%E7%BD%97%E5%88%97/"/>
       <url>/2023/08/04/%E9%81%87%E5%88%B0%E7%9A%84%E6%96%B0%E7%9F%A5%E8%AF%86%E7%82%B9%E7%BD%97%E5%88%97/</url>
       
-        <content type="html"><![CDATA[<p>在这里我会把发现的新的但并不是多熟悉的知识点罗列一下, 并且简单的描述一遍, 目的是有序的这些知识点练习掌握并梳理归纳下来. </p><hr><h2 id="知识点罗列-计划中准备梳理归纳的知识点"><a href="#知识点罗列-计划中准备梳理归纳的知识点" class="headerlink" title="知识点罗列&amp;计划中准备梳理归纳的知识点:"></a>知识点罗列&amp;计划中准备梳理归纳的知识点:</h2><ol><li>测试网络通信相关, 通过热搜api写一个热搜获取小工具 </li><li>通过第一点, 梳理归纳QJsonArray &#x2F; QJsonObject</li><li>梳理计算机程序运行分区的知识点</li><li>使用qchart组件写一个demo, 建立对它的基本认识</li><li>通过第四点, 对chartzoom进行深入的理解</li><li>使用 QCustomPlot 了解它的基本功能, 做到想用的时候会怎么用</li></ol><p>这个文档完成一条去掉一条, 基本上都会生成相关文档并上传到博客里, 只能说一起加油吧家人们 !</p><p>一些链接:</p><p>测试相关:<a href="https://mp.weixin.qq.com/s/jUO2D5EokbNgZ3Yf0Nm13Q">https://mp.weixin.qq.com/s/jUO2D5EokbNgZ3Yf0Nm13Q</a></p>]]></content>
+        <content type="html"><![CDATA[<p>在这里我会把发现的新的但并不是多熟悉的知识点罗列一下, 并且简单的描述一遍, 目的是有序的这些知识点练习掌握并梳理归纳下来. </p><hr><h2 id="知识点罗列-计划中准备梳理归纳的知识点"><a href="#知识点罗列-计划中准备梳理归纳的知识点" class="headerlink" title="知识点罗列&amp;计划中准备梳理归纳的知识点:"></a>知识点罗列&amp;计划中准备梳理归纳的知识点:</h2><ol><li>测试网络通信相关, 通过热搜api写一个热搜获取小工具 </li><li>通过第一点, 梳理归纳QJsonArray &#x2F; QJsonObject</li><li>梳理计算机程序运行分区的知识点</li><li>使用qchart组件写一个demo, 建立对它的基本认识</li><li>通过第四点, 对chartzoom进行深入的理解</li><li>使用 QCustomPlot 了解它的基本功能, 做到想用的时候会怎么用</li><li>窗口切换的相关需要注意的问题</li><li>(.pri)文件及其已有文件的移植问题</li></ol><p>这个文档完成一条去掉一条, 基本上都会生成相关文档并上传到博客里, 只能说一起加油吧家人们 !</p><p>一些链接:</p><p>测试相关:<a href="https://mp.weixin.qq.com/s/jUO2D5EokbNgZ3Yf0Nm13Q">https://mp.weixin.qq.com/s/jUO2D5EokbNgZ3Yf0Nm13Q</a></p>]]></content>
       
       
       
