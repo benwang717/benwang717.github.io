@@ -17,6 +17,25 @@
     
     
     <entry>
+      <title>父子组件背景问题</title>
+      <link href="/2023/07/16/%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E8%83%8C%E6%99%AF%E9%97%AE%E9%A2%98/"/>
+      <url>/2023/07/16/%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E8%83%8C%E6%99%AF%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<p>通常情况下, 在项目中的某一个ui界面我们需要使用美工做的图为背景图,像这样:</p><p><img src="/../images/image-20230810114619308.png" alt="image-20230810114619308"></p><p>此时我们会遇到一些问题, 假设我们需要添加一个QLineEdit组件, 像往常一样拖拽一个QLineEdit组件到我们已经设定了背景图的窗口中, 可以看到效果是这样的. </p><p><img src="/../images/image-20230810114900300.png" alt="image-20230810114900300"></p><p>首先, 我们的QLineEdit组件是设置有样式表的, 如下图</p><p><img src="/../images/image-20230810115121271.png" alt="image-20230810115121271"></p><p>但是为什么在拖拽到组件中我们的样式却消失了?</p><p>其实并不是, 当我们一个子组件拖拽到一个父组件的时候, 这个子组件会继承这个父组件的一些基本的样式信息, 这些基本样式信息中就含有背景图, 也就是说, 这个子组件继承了父组件的背景图.</p><p>所以, 为了避免这种情况影响到我们的需求, 我们再设定组件信息的时候需要初始化子组件的背景图路径, 设一个空路径, 如下图:</p><p><img src="/../images/image-20230810115518015.png" alt="image-20230810115518015"></p><p>注意, url() 中不要填写任何信息, 然后我们再次拖拽到父组件中查看效果, 如下图:</p><p><img src="/../images/image-20230810115624768.png" alt="image-20230810115624768"></p><p>可以看到我们再子组件设定的样式信息保留了下来</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Qt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>内存分区问题</title>
       <link href="/2023/07/04/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA%E9%97%AE%E9%A2%98/"/>
       <url>/2023/07/04/%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA%E9%97%AE%E9%A2%98/</url>
@@ -174,7 +193,7 @@
       <link href="/2023/01/17/%E5%85%B3%E4%BA%8EQt%E4%B8%AD.pri%E6%96%87%E4%BB%B6/"/>
       <url>/2023/01/17/%E5%85%B3%E4%BA%8EQt%E4%B8%AD.pri%E6%96%87%E4%BB%B6/</url>
       
-        <content type="html"><![CDATA[<p>​通过Qt创建的项目中，例如通常情况下的小项目，较少用到.pri文件。但是在中型或大型项目当中，需要把项目中的各个功能模块化，分隔开独立开发。这个时候就需要用到.pri文件取分支项目。以下是.pri的创建流程：</p><ol><li><p>首先在创建好的项目中右键.pro文件→在Explorer中打开，打开项目所在路径</p></li><li><p>在项目所在的路径中新建一个文件夹并命名demo</p></li><li><p>在文件夹中新建txt文件，并重命名为demo.pri</p></li><li><p>回到Qt，在Qt界面中的pro文件中添加</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">include</span>($$PWD/demo/demo.pri)</span><br><span class="line"><span class="comment">//$$：环境变量名</span></span><br></pre></td></tr></table></figure></li><li><p>添加完成后保存，等待一会儿就可以看到，项目中新添加了新的demo类目，其中存在demo.pri文件</p></li><li><p>这样分化的类目的基本雏形就存在了，接下来是在这个类目中添加新的.h&#x2F;.cpp和ui文件(注：并非所有的类目都需要ui文件，这里会分开说明)</p></li><li><p>a.如果不需要ui文件：右击新添加的类目，从选项中选择添加新文件，选择“C&#x2F;C++”，然后按照正常的项目创建流程创建即可；</p><p>b.如果需要ui文件：依然是单击右键，选择添加新文件，选择”Qt”，在这一类目中选择”Qt 设计器界面类”，然后按照正常流程创建即可</p></li><li><p>以上这两种方式在创建完成时，会在.pri文件中直接生成引用源，不需要再次声明</p><p>大概流程就是这样</p><p>以上(*￣︶￣)</p></li></ol>]]></content>
+        <content type="html"><![CDATA[<p>​通过Qt创建的项目中，例如通常情况下的小项目，较少用到.pri文件。但是在中型或大型项目当中，需要把项目中的各个功能模块化，分隔开独立开发。这个时候就需要用到.pri文件取分支项目。以下是.pri的创建流程：</p><ol><li><p>首先在创建好的项目中右键.pro文件→在Explorer中打开，打开项目所在路径</p></li><li><p>在项目所在的路径中新建一个文件夹并命名demo</p></li><li><p>在文件夹中新建txt文件，并重命名为demo.pri</p></li><li><p>回到Qt，在Qt界面中的pro文件中添加</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">include</span>($$PWD/demo/demo.pri)</span><br><span class="line"><span class="comment">//$$：环境变量名</span></span><br></pre></td></tr></table></figure></li><li><p>添加完成后保存，等待一会儿就可以看到，项目中新添加了新的demo类目，其中存在demo.pri文件</p></li><li><p>这样分化的类目的基本雏形就存在了，接下来是在这个类目中添加新的.h&#x2F;.cpp和ui文件(注：并非所有的类目都需要ui文件，这里会分开说明)</p></li><li><p>a.如果不需要ui文件：右击新添加的类目，从选项中选择添加新文件，选择“C&#x2F;C++”，然后按照正常的项目创建流程创建即可；</p><p>b.如果需要ui文件：依然是单击右键，选择添加新文件，选择”Qt”，在这一类目中选择”Qt 设计器界面类”，然后按照正常流程创建即可</p></li><li><p>以上这两种方式在创建完成时，会在.pri文件中直接生成引用源，不需要再次声明</p><h3 id="需要注意的问题"><a href="#需要注意的问题" class="headerlink" title="需要注意的问题:"></a>需要注意的问题:</h3><p>​在项目的中涉及到添加.pri文件的时候, 一般情况下我们的需求可能就是把某几组 .h&#x2F;cpp&#x2F;.ui 文件放置在同一个pri下方便管理, 这里可能会涉及到一些已有的 .h&#x2F;cpp&#x2F;.ui 文件需要转移到 .pri 目录下, 方法是直接逐个拖动过去即可, 在这之后变更调用这些文件 ( 如.h文件 ) 的位置的相对路径即可.</p></li></ol>]]></content>
       
       
       
