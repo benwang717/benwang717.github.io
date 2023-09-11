@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>二进制模2除法（CRC校验）</title>
+      <link href="/2023/09/08/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%A8%A12%E9%99%A4%E6%B3%95/"/>
+      <url>/2023/09/08/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%A8%A12%E9%99%A4%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p>防止原资源文档丢失, 所以把内容留存在这里, 留作个人笔记</p><p>以下内容转载于:<a href="https://blog.csdn.net/weixin_39450145/article/details/83987836">https://blog.csdn.net/weixin_39450145/article/details/83987836</a></p><h3 id="二进制模2除法与二进制除法不同。"><a href="#二进制模2除法与二进制除法不同。" class="headerlink" title="二进制模2除法与二进制除法不同。"></a>二进制模2除法与二进制除法不同。</h3><h3 id="模2运算：加法不进位，减法不借位。"><a href="#模2运算：加法不进位，减法不借位。" class="headerlink" title="模2运算：加法不进位，减法不借位。"></a>模2运算：加法不进位，减法不借位。</h3><p><img src="/../images/image-20230908144721375.png" alt="image-20230908144721375"></p><p>二进制除法：<br>       带借位的二进制除法，根据余数减除数够减与否，确定商1还是商0，若够减则商1，否则商0。</p><p>二进制模2除法：<br>      采用模2减法，不带借位的二进制减法，因此考虑余数够减除数与否是没有意义 的。实际上，在CRC运算中，总能保证除数的首位为1，则模2除法运算的商是由余数首位与除数首位的模2除法运算结果确定。因为除数首位总是1，按照模2 除法运算法则，那么余数首位是1就商1，是0就商0。</p><p>（1）一步步的计算方法：</p><pre><code>模2除法与长除法类似，但有个特点：不借位。说白了就是按位异或，相同为0，不同为1。 </code></pre><p>它有三个原则：<br>   1、除数与被除数最高几位（与除数位数相同）做异或，商1。（除数首位必须为1）<br>   2、余数先去掉首位，若此时余数最高位为1，商1，并对以它为除数继续模2除。<br>         若最高位为0，则商0，重复步骤2。<br>   3、直到余数位数小于除数位数时，运算结束。 </p><p>（2）熟悉规则之后，比较简洁的方法</p><pre><code>  1、当余数位数与除数位数相同时，才进行异或运算，余数首位是1，商就是1，余数首位是0，商就是0。  2、当已经除了几位后，余数位数小于除数，商0，余数往右补一位，位数仍比除数少，则继续商0，当余数位数和除数位数一样时，商1，进行异或运算，得新的余数，以此至被除数最后一位。</code></pre><p><img src="/../images/image-20230908144752182.png" alt="image-20230908144752182"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> CRC </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>QCustomPlot的安装与使用</title>
       <link href="/2023/08/23/QCustomPlot%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
       <url>/2023/08/23/QCustomPlot%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
@@ -25,11 +44,11 @@
     
     
     <entry>
-      <title>遇到的新知识点罗列</title>
+      <title>笔记预罗列</title>
       <link href="/2023/08/04/%E9%81%87%E5%88%B0%E7%9A%84%E6%96%B0%E7%9F%A5%E8%AF%86%E7%82%B9%E7%BD%97%E5%88%97/"/>
       <url>/2023/08/04/%E9%81%87%E5%88%B0%E7%9A%84%E6%96%B0%E7%9F%A5%E8%AF%86%E7%82%B9%E7%BD%97%E5%88%97/</url>
       
-        <content type="html"><![CDATA[<p>在这里我会把发现的新的但并不是多熟悉的知识点罗列一下, 并且简单的描述一遍, 目的是有序的把这些知识点练习掌握并梳理归纳下来. </p><h2 id="知识点罗列-计划中准备梳理归纳的知识点"><a href="#知识点罗列-计划中准备梳理归纳的知识点" class="headerlink" title="知识点罗列&amp;计划中准备梳理归纳的知识点:"></a>知识点罗列&amp;计划中准备梳理归纳的知识点:</h2><ol><li>使用qchart组件写一个demo, 建立对它的基本认识</li><li>对chartzoom进行深入的理解</li><li>窗口切换的相关需要注意的问题</li><li>模糊动画函数调用QGraphicsBlurEffect&amp;QPropertyAnimation</li><li>初识QGraphicsScene和QGraphicsView, 了解基本概念</li><li>关于Q_PROPERTY 属性管理器 [重要]</li><li>对于单例模式的一些理解</li><li>数据库的相关操作总结</li><li>初识qml</li><li>整理常用容器的基本功能</li><li>qt导出pdf&#x2F;csv</li></ol><p>这个文档完成一条去掉一条, 基本上都会生成相关文档并上传到博客里, 一起加油吧家人们 !</p><p>一些链接:</p><p>测试相关:<a href="https://mp.weixin.qq.com/s/jUO2D5EokbNgZ3Yf0Nm13Q">https://mp.weixin.qq.com/s/jUO2D5EokbNgZ3Yf0Nm13Q</a></p>]]></content>
+        <content type="html"><![CDATA[<p>在这里我会把发现的新的但并不是多熟悉的知识点罗列一下, 并且简单的描述一遍, 目的是有序的把这些知识点练习掌握并梳理归纳下来. </p><h2 id="知识点罗列-计划中准备梳理归纳的知识点"><a href="#知识点罗列-计划中准备梳理归纳的知识点" class="headerlink" title="知识点罗列&amp;计划中准备梳理归纳的知识点:"></a>知识点罗列&amp;计划中准备梳理归纳的知识点:</h2><ol><li>使用qchart组件写一个demo, 建立对它的基本认识</li><li>对chartzoom进行深入的理解</li><li>初识QGraphicsScene和QGraphicsView, 了解基本概念</li><li>关于Q_PROPERTY 属性管理器 [重要]</li><li>数据库的相关操作总结</li><li>初识qml</li><li>整理常用容器的基本功能</li><li>qt导出pdf&#x2F;csv</li></ol><p>这个文档完成一条去掉一条, 基本上都会生成相关文档并上传到博客里.</p><p>一些链接:</p><p>测试相关: <a href="https://mp.weixin.qq.com/s/jUO2D5EokbNgZ3Yf0Nm13Q">https://mp.weixin.qq.com/s/jUO2D5EokbNgZ3Yf0Nm13Q</a></p><p>RFID二次开发相关: <a href="http://sdk.highwillow.cn:31213/">http://sdk.highwillow.cn:31213/</a></p><p>免费的一些接口:<a href="https://www.bejson.com/knownjson/webInterface/">https://www.bejson.com/knownjson/webInterface/</a></p><p>本地ip接口: <a href="http://whois.pconline.com.cn/ipJson.jsp?json=true">http://whois.pconline.com.cn/ipJson.jsp?json=true</a></p>]]></content>
       
       
       
