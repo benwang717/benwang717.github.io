@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>简化qDebug()输出方式</title>
+      <link href="/2023/10/31/%E7%AE%80%E5%8C%96%E8%BE%93%E5%87%BA%E6%96%B9%E5%BC%8F/"/>
+      <url>/2023/10/31/%E7%AE%80%E5%8C%96%E8%BE%93%E5%87%BA%E6%96%B9%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<p>Qt总在测试输出的时候在声明<QDebug>之后就可以通过qDebug()&lt;&lt;的方式输出, 方便测试.</p><p>在复杂的项目中涉及到输出的内容较多, 为了方便找到输出的对应内容, 这里需要简化qDebug()的写法, 方式很简单:</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//在相关的头文件中添加一下语句</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> QDBG qDebug()&lt;&lt; __FILE__ &lt;&lt; __FUNCTION__ &lt;&lt; __LINE__ &lt;&lt;</span></span><br><span class="line"><span class="comment">//这里需要注意file表示文件位置, function表示所在函数, line表示代码所在的行数</span></span><br></pre></td></tr></table></figure><p>宏定义之后, 如果要输出就可以这样写</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">QDBG <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果宏定义最后的 &lt;&lt; 符号没有添加, 则应该这样写</span></span><br><span class="line"><span class="comment">//QDBG &lt;&lt; &quot;Hello World!&quot;;</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Qt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>PyVISA库</title>
       <link href="/2023/10/24/PyVisa%E5%BA%93/"/>
       <url>/2023/10/24/PyVisa%E5%BA%93/</url>
