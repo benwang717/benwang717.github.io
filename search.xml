@@ -4,6 +4,40 @@
   
     
     <entry>
+      <title>笔记预罗列</title>
+      <link href="/2023/12/22/%E7%AC%94%E8%AE%B0%E9%A2%84%E7%BD%97%E5%88%97/"/>
+      <url>/2023/12/22/%E7%AC%94%E8%AE%B0%E9%A2%84%E7%BD%97%E5%88%97/</url>
+      
+        <content type="html"><![CDATA[<p>在这里我会把发现的新的但并不是多熟悉的知识点罗列一下, 并且简单的描述一遍, 目的是有序的把这些知识点练习掌握并梳理归纳下来. </p><h2 id="知识点罗列-计划中准备梳理归纳的知识点"><a href="#知识点罗列-计划中准备梳理归纳的知识点" class="headerlink" title="知识点罗列&amp;计划中准备梳理归纳的知识点:"></a>知识点罗列&amp;计划中准备梳理归纳的知识点:</h2><ol><li><p>使用qchart组件写一个demo, 建立对它的基本认识</p></li><li><p>对chartzoom进行深入的理解</p></li><li><p>初识QGraphicsScene和QGraphicsView, 了解基本概念</p></li><li><p>关于Q_PROPERTY 属性管理器 [重要]</p></li><li><p>数据库的相关操作总结</p></li><li><p>初识qml</p></li><li><p>整理常用容器的基本功能</p></li><li><p>qt导出pdf&#x2F;csv</p></li><li><p>modbusTCP通信原理</p></li><li><p>使用Qt Design Studio新建一个qml项目, 梳理相关知识点</p></li><li><p>enum Qt::WidgetAttribute相关</p></li><li><p>QThread</p></li><li><p>QThreadPool &#x2F; QQRunnable</p></li><li><p>Qt Concurrent</p></li><li><p>WorkerScript(QML)</p></li><li><p>Qt中的套接字通信和网络通信操作流程</p></li><li><p>PyTorch深度学习</p><p>​</p></li></ol><p>这个文档完成一条去掉一条, 基本上都会生成相关文档并上传到博客里.</p><p>下面是一些小的知识点或一些需要注意的细节, 没必要单独写成一篇文档, 我把这些零碎的知识点记录在这里.</p><p>1.(qt相关) 自定义信号槽 中, 如果是在当前的类下开辟的信号槽, 即发送者和接受者都是本类 this , 需要注意这种情况下 connect 的语法格式, 如下</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">connect</span>(<span class="keyword">this</span>,<span class="built_in">SIGNAL</span>(<span class="built_in">freshDeviceStatus</span>()),<span class="keyword">this</span>,<span class="built_in">SLOT</span>(<span class="built_in">on_freshDeviceStatus</span>()));</span><br><span class="line"><span class="comment">//注意发送和信号都要使用格式包裹起来, 如果带参数记得补上参数</span></span><br></pre></td></tr></table></figure><ol start="2"><li></li></ol><p>一些链接:</p><p>测试相关: <a href="https://mp.weixin.qq.com/s/jUO2D5EokbNgZ3Yf0Nm13Q">https://mp.weixin.qq.com/s/jUO2D5EokbNgZ3Yf0Nm13Q</a></p><p>RFID二次开发相关: <a href="http://sdk.highwillow.cn:31213/">http://sdk.highwillow.cn:31213/</a></p><p>免费的一些接口:<a href="https://www.bejson.com/knownjson/webInterface/">https://www.bejson.com/knownjson/webInterface/</a></p><p>本地ip接口: <a href="http://whois.pconline.com.cn/ipJson.jsp?json=true">http://whois.pconline.com.cn/ipJson.jsp?json=true</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>关于Q_OBJECT</title>
+      <link href="/2023/12/02/%E5%85%B3%E4%BA%8EQ_OBJECT/"/>
+      <url>/2023/12/02/%E5%85%B3%E4%BA%8EQ_OBJECT/</url>
+      
+        <content type="html"><![CDATA[<p>本篇主要针对涉及到Q_OBJECT的相关问题.</p><p>先上结论, 通常情况下, 在qt开发中当我们需要写一个功能接口的时候, 要尽量考虑一个问题: </p><p>即: 所写的接口是否需要兼容在纯C++项目中, 即需要正常使用在不能兼容Qt相关特性的环境中. 如果需要满足这个条件, 在添加接口的时候在头部(.h)就不能声明Q_OBJECT, 反之则需要声明.</p><p>然后需要解释一下Q_OBJECT是个什么东西,  在QT项目里添加新的文件(.h&#x2F;.cpp)的时候, 会有很多预选项, 其中一项就是是否勾选[Q_OBJECT], Q_OBJECT在QT自带的字典中是这么解释的, “The Q_OBJECT macro must appear in the private section of a class definition that declares its own signals and slots or that uses other services provided by Qt’s meta-object system.”( Q_OBJECT宏必须出现在类定义的私有部分中，该类定义声明其自己的信号和插槽，或者使用Qt的元对象系统提供的其他服务。) 这里提到了元对象, “moc 全称是 Meta-Object Compiler，也就是“元对象编译器”。</p><p>Qt 程序在交由标准编译器编译之前，先要使用 moc 分析 C++ 源文件。如果它发现在一个头文件中包含了宏 Q_OBJECT，则会生成另外一个 C++ 源文件。这个源文件中包含了 Q_OBJECT 宏的实现代码。这个新的文件名字将会是原文件名前面加上 moc_ 构成。这个新的文件同样将进入编译系统，最终被链接到二进制代码中去。因此我们可以知道，这个新的文件不是“替换”掉旧的文件，而是与原文件一起参与编译。另外，我们还可以看出一点，moc 的执行是在预处理器之前。因为预处理器执行之后，Q_OBJECT 宏就不存在了。<br>Qt 将源代码交给标准 C++ 编译器，如 gcc 之前，需要事先将这些扩展的语法去除掉。完成这一操作的就是 moc。</p><p>我简单概括一下就是, 在我们需要调用具有QT独有特性的功能的时候, 如信号槽, 直接用的话C++是不认识的, 在这种情况下, 需要通过MOC作为一个”翻译”, 让MOC去向C++解释你的意图, 而Q_OBJECT就是这个”标志位”, 在你声明了Q_OBJECT的时候, 就表示你需要通过MOC向C++解释, 即你需要调用QT的特性功能.</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Qt </tag>
+            
+            <tag> Q_OBJECT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Qt网络通信2</title>
       <link href="/2023/11/07/Qt%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A12/"/>
       <url>/2023/11/07/Qt%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A12/</url>
@@ -191,19 +225,6 @@
             <tag> QCustomPlot </tag>
             
         </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>笔记预罗列</title>
-      <link href="/2023/08/04/%E7%AC%94%E8%AE%B0%E9%A2%84%E7%BD%97%E5%88%97/"/>
-      <url>/2023/08/04/%E7%AC%94%E8%AE%B0%E9%A2%84%E7%BD%97%E5%88%97/</url>
-      
-        <content type="html"><![CDATA[<p>在这里我会把发现的新的但并不是多熟悉的知识点罗列一下, 并且简单的描述一遍, 目的是有序的把这些知识点练习掌握并梳理归纳下来. </p><h2 id="知识点罗列-计划中准备梳理归纳的知识点"><a href="#知识点罗列-计划中准备梳理归纳的知识点" class="headerlink" title="知识点罗列&amp;计划中准备梳理归纳的知识点:"></a>知识点罗列&amp;计划中准备梳理归纳的知识点:</h2><ol><li><p>使用qchart组件写一个demo, 建立对它的基本认识</p></li><li><p>对chartzoom进行深入的理解</p></li><li><p>初识QGraphicsScene和QGraphicsView, 了解基本概念</p></li><li><p>关于Q_PROPERTY 属性管理器 [重要]</p></li><li><p>数据库的相关操作总结</p></li><li><p>初识qml</p></li><li><p>整理常用容器的基本功能</p></li><li><p>qt导出pdf&#x2F;csv</p></li><li><p>modbusTCP通信原理</p></li><li><p>使用Qt Design Studio新建一个qml项目, 梳理相关知识点</p></li><li><p>Q_OBJECT在什么时候会报错的相关问题</p></li><li><p>enum Qt::WidgetAttribute相关</p></li><li><p>QThread</p></li><li><p>QThreadPool &#x2F; QQRunnable</p></li><li><p>Qt Concurrent</p></li><li><p>WorkerScript(QML)</p></li><li><p>Qt中的套接字通信和网络通信操作流程</p></li><li><p>PyTorch深度学习</p><p>​</p></li></ol><p>这个文档完成一条去掉一条, 基本上都会生成相关文档并上传到博客里.</p><p>下面是一些小的知识点或一些需要注意的细节, 没必要单独写成一篇文档, 我把这些零碎的知识点记录在这里.</p><p>1.(qt相关) 自定义信号槽 中, 如果是在当前的类下开辟的信号槽, 即发送者和接受者都是本类 this , 需要注意这种情况下 connect 的语法格式, 如下</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">connect</span>(<span class="keyword">this</span>,<span class="built_in">SIGNAL</span>(<span class="built_in">freshDeviceStatus</span>()),<span class="keyword">this</span>,<span class="built_in">SLOT</span>(<span class="built_in">on_freshDeviceStatus</span>()));</span><br><span class="line"><span class="comment">//注意发送和信号都要使用格式包裹起来, 如果带参数记得补上参数</span></span><br></pre></td></tr></table></figure><ol start="2"><li></li></ol><p>一些链接:</p><p>测试相关: <a href="https://mp.weixin.qq.com/s/jUO2D5EokbNgZ3Yf0Nm13Q">https://mp.weixin.qq.com/s/jUO2D5EokbNgZ3Yf0Nm13Q</a></p><p>RFID二次开发相关: <a href="http://sdk.highwillow.cn:31213/">http://sdk.highwillow.cn:31213/</a></p><p>免费的一些接口:<a href="https://www.bejson.com/knownjson/webInterface/">https://www.bejson.com/knownjson/webInterface/</a></p><p>本地ip接口: <a href="http://whois.pconline.com.cn/ipJson.jsp?json=true">http://whois.pconline.com.cn/ipJson.jsp?json=true</a></p>]]></content>
-      
-      
       
     </entry>
     
