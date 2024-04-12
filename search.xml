@@ -292,6 +292,48 @@
     
     
     <entry>
+      <title>工厂模式模式</title>
+      <link href="/2023/08/15/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2023/08/15/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> C++ </tag>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>简单工厂模式</title>
+      <link href="/2023/08/09/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
+      <url>/2023/08/09/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<p>1.定义：一个工厂方法，依据传入的参数，生成对应的产品对象。</p><p>2.角色：抽象产品类；具体产品；工厂类</p><p>3.使用说明： 先将产品类抽象出来，比如，苹果和梨都属于水果，抽象出来一个水果类Fruit，苹果和梨就是具体的产品类，然后创建一个水果工厂，分别用来创建苹果和梨；</p><p>4.简单工厂模式的优缺点：</p><pre><code>     在这个模式中，工厂类是整个模式的关键所在。它包含必要的判断逻辑，能够根据外界给定的信息，决定究竟应该创建哪个具体类的对象。用户在使用时可以直接根据工厂类去创建所需的实例，而无需了解这些对象是如何创建以及如何组织的。有利于整个软件体系结构的优化。不难发现，简单工厂模式的缺点也正体现在其工厂类上，由于工厂类集中了所有实例的创建逻辑，所以“高内聚”方面做的并不好。另外，当系统中的具体产品类不断增多时，可能会出现要求工厂类也要做相应的修改，扩展性并不很好。</code></pre><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Fruit</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Apple</span> : <span class="keyword">public</span> Fruit</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;this is Apple&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Banana</span> : <span class="keyword">public</span> Fruit</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;this is Banana&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">pear</span> : <span class="keyword">public</span> Fruit</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">show</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;this is pear&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Factory</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Fruit *<span class="title">CreateApple</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Apple;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">Fruit *<span class="title">CreateBanana</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Banana;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">Fruit *<span class="title">CreatePear</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> pear;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> <span class="type">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Factory *f = <span class="keyword">new</span> Factory;</span><br><span class="line">    Fruit *Fruit;</span><br><span class="line">    Fruit = f-&gt;<span class="built_in">CreateApple</span>();</span><br><span class="line">    Fruit-&gt;<span class="built_in">show</span>();</span><br><span class="line">    Fruit = f-&gt;<span class="built_in">CreateBanana</span>();</span><br><span class="line">    Fruit-&gt;<span class="built_in">show</span>();</span><br><span class="line">    Fruit = f-&gt;<span class="built_in">CreatePear</span>();</span><br><span class="line">    Fruit-&gt;<span class="built_in">show</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>简单工厂模式的核心是三个部分: 第一个是基类, 类似理解为超市中的各个销售分区, 水果区, 肉类区, 日用品区等等. </p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Fruit</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">show</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>以水果为例,  这里来到第二个核心部分, 子类, 顾名思义隶属于基类, 它可以是苹果\香蕉\梨等等. 这里需要注意的点就是, 子类在定义的时候要声明它所隶属的基类</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Apple</span> : <span class="keyword">public</span> Fruit</span><br><span class="line">...</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Banana</span> : <span class="keyword">public</span> Fruit</span><br><span class="line">....</span><br></pre></td></tr></table></figure><p>最后就是工厂类, 工厂类定义不需要声明基类,但是要写在前面两部分的下面, 构造函数里需要用基类作为回参, 类似于</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Factory</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">Fruit *<span class="title">CreateApple</span><span class="params">()</span><span class="comment">//用基类Fruit 作为回参</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Apple;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">Fruit *<span class="title">CreateBanana</span><span class="params">()</span><span class="comment">//用基类Fruit 作为回参</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Banana;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">Fruit *<span class="title">CreatePear</span><span class="params">()</span><span class="comment">//用基类Fruit 作为回参</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> pear;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>上述代码, 能看到回参的形式是在堆区开辟的新的空间, 因为子类均已经声明隶属, 所以这种写法不会报错. </p><hr><p>前期的关系已经梳理完, 下面就是简单工厂模式的使用方法.  首先要实例化工厂类, 并且定义一个基类的指针(不实例)</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Factory *f = <span class="keyword">new</span> Factory;</span><br><span class="line">Fruit *Fruit;</span><br></pre></td></tr></table></figure><p>然后, 用定义的基类指针去接收(指向) 工厂类的函数返回参</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Fruit = f-&gt;<span class="built_in">CreateApple</span>();<span class="comment">//CreateApple函数的返回类型就是Fruit, 函数执行后直接返回了在堆区重新开辟的子类Apple</span></span><br><span class="line">Fruit-&gt;<span class="built_in">show</span>();<span class="comment">//这个时候调用的就是子类Apple中的show()函数 //下面两个调用逻辑相同</span></span><br><span class="line">Fruit = f-&gt;<span class="built_in">CreateBanana</span>();</span><br><span class="line">Fruit-&gt;<span class="built_in">show</span>();</span><br><span class="line">Fruit = f-&gt;<span class="built_in">CreatePear</span>();</span><br><span class="line">Fruit-&gt;<span class="built_in">show</span>();</span><br></pre></td></tr></table></figure><p>使用场景: 在项目中有些需要模块化的功能, 在功能量比较少的时候可以实用简单工厂模式, 简单工厂模式可以在部署完成之后方便的调用某一个接口功能.</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> C++ </tag>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>加载中界面</title>
       <link href="/2023/07/17/%E5%8A%A0%E8%BD%BD%E4%B8%AD%E7%95%8C%E9%9D%A2/"/>
       <url>/2023/07/17/%E5%8A%A0%E8%BD%BD%E4%B8%AD%E7%95%8C%E9%9D%A2/</url>
@@ -347,6 +389,8 @@
             <tag> C++ </tag>
             
             <tag> Qt </tag>
+            
+            <tag> 设计模式 </tag>
             
         </tags>
       
