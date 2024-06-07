@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Qt中常用的容器及其特征</title>
+      <link href="/2024/05/07/Qt%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%B9%E5%99%A8%E5%8F%8A%E5%85%B6%E7%89%B9%E5%BE%81/"/>
+      <url>/2024/05/07/Qt%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%B9%E5%99%A8%E5%8F%8A%E5%85%B6%E7%89%B9%E5%BE%81/</url>
+      
+        <content type="html"><![CDATA[<h3 id="QVector"><a href="#QVector" class="headerlink" title="QVector"></a>QVector</h3><p>QVector的本质是顺序表, 空间开辟是连续的. 它和其他容器基本功能一致, 因为是顺序表, QVector的优点是, 在查找元素的时候销量更高, 但在执行删除和插入操作的时候因为要重写后续地址信息所以效率很低. 所以QVector适用在低容量, 变更频次较低的容器使用场景.</p><h3 id="QList"><a href="#QList" class="headerlink" title="QList"></a>QList</h3><p>QList的本质是链表, 链表本质是指针链接起来的容器. 空间利用率高. 方便执行删除和插入操作, 它的优缺点和QVector可以说是刚好反过来, 省空间但不省时间, 遍历效率要低于顺序表. 但适合在数据量大的数据变更频次高的场景下使用.</p><h3 id="QQueue"><a href="#QQueue" class="headerlink" title="QQueue"></a>QQueue</h3><p>QQueue继承自QList, 其本质也是链表. (待补充)</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Qt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>笔记预罗列【置顶】</title>
       <link href="/2024/03/22/%E7%AC%94%E8%AE%B0%E9%A2%84%E7%BD%97%E5%88%97%E3%80%90%E7%BD%AE%E9%A1%B6%E3%80%91/"/>
       <url>/2024/03/22/%E7%AC%94%E8%AE%B0%E9%A2%84%E7%BD%97%E5%88%97%E3%80%90%E7%BD%AE%E9%A1%B6%E3%80%91/</url>
@@ -296,7 +315,7 @@
       <link href="/2023/08/15/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
       <url>/2023/08/15/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p>补充中…</p>]]></content>
       
       
       
@@ -551,6 +570,25 @@
         <tags>
             
             <tag> Qt </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>git版本管理工具</title>
+      <link href="/2023/04/25/git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+      <url>/2023/04/25/git%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<p>笔记以本地仓库的操作为主, 涉及到远程仓库以后再补充. git工具的仓库管理有两种方式, 一个是通过命令行管理的git bash 另一个是更加直观的可视化工具 git gui.  我自己用后者多一点, 因为开发环境是windows, 可视化工具用起来真的很方便, 但是在别的开放系统中可能还是要用到git bash, 这里笔记就是以git bash命令行的方式对项目版本控制的常用流程做一个笔记记录.</p><ol><li><p>首先新建一个文件夹, 在文件夹中创建一个txt文件, 编辑该txt文件,随便写什么都可以, 这里为了方便观察, 可在txt文件中写个0就可以.</p></li><li><p>关闭txt文件, 在文件夹中鼠标右键选择”Open Git Bash here”, 这里就开的了git bash</p></li><li><p>在弹出的bash框中, 写入 git init,  仓库就初始化完成了</p></li><li><p>键入 git add .   别忘了空格后加个. ,这里是把文件放置在就绪状态, git仓库的提交机制就是先把变更或者新增的文件放置在一个就绪的状态, 然后再提交</p></li><li><p>就绪之后, 键入 git commit -m “引号里写提交的备注信息”  ,  这里就是把就绪的文件提交, 这就完成了一次提交</p></li><li><p>创建子分支, 键入 git branch 分支名称 (在创建项目的时候, 会给你默认开辟一个主分支master, 在实际项目中, 有时候可客户需要一个特定的功能, 这个时候需要分支一个子分支, 不能让它影响主分支.)</p><p>6.1 这里需要补充说明一下 “git branch 分支名称” 这种方法可以新建一个子分支 但是不会切换到你的新建的这个分支中去, 完成这个操作如果你需要切换到子分支还需要再切换到子分支, 键入 git checkout 子分支名称, 就可以切换.</p><p>6.2 如果需要新建一个分支并且自动切换到这个分支中去需要使用 “git checkout -b 分支名称”</p><p>6.3 如果在创建一个分支的时候不小心起错了名字或者某个子分支不再需要的时候, 使用 “git branch -d 分支名称” , 可以删除对应的分支.</p><p>6.4 在中大型项目中, 每个人负责的可能是对应的某一个具体的功能. 这个时候就需要把某一个子分支合并到主分支中去, 首先你要切换回主分支”git chechout master”, 然后把子分支合并过来, “git merge 子分支名称” 即可.</p></li></ol>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> git </tag>
             
         </tags>
       
