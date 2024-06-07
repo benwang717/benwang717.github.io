@@ -8,7 +8,7 @@
       <link href="/2024/05/07/Qt%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%B9%E5%99%A8%E5%8F%8A%E5%85%B6%E7%89%B9%E5%BE%81/"/>
       <url>/2024/05/07/Qt%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%B9%E5%99%A8%E5%8F%8A%E5%85%B6%E7%89%B9%E5%BE%81/</url>
       
-        <content type="html"><![CDATA[<h3 id="QVector"><a href="#QVector" class="headerlink" title="QVector"></a>QVector</h3><p>QVector的本质是顺序表, 空间开辟是连续的. 它和其他容器基本功能一致, 因为是顺序表, QVector的优点是, 在查找元素的时候销量更高, 但在执行删除和插入操作的时候因为要重写后续地址信息所以效率很低. 所以QVector适用在低容量, 变更频次较低的容器使用场景.</p><h3 id="QList"><a href="#QList" class="headerlink" title="QList"></a>QList</h3><p>QList的本质是链表, 链表本质是指针链接起来的容器. 空间利用率高. 方便执行删除和插入操作, 它的优缺点和QVector可以说是刚好反过来, 省空间但不省时间, 遍历效率要低于顺序表. 但适合在数据量大的数据变更频次高的场景下使用.</p><h3 id="QQueue"><a href="#QQueue" class="headerlink" title="QQueue"></a>QQueue</h3><p>QQueue继承自QList, 其本质也是链表. (待补充)</p>]]></content>
+        <content type="html"><![CDATA[<p>[TOC]</p><hr><h3 id="QVector"><a href="#QVector" class="headerlink" title="QVector"></a>QVector</h3><p>​QVector的本质是顺序表, 空间开辟是连续的. 它和其他容器基本功能一致, 因为是顺序表, QVector的优点是, 在查找元素的时候销量更高, 但在执行删除和插入操作的时候因为要重写后续地址信息所以效率很低. 所以QVector适用在低容量, 变更频次较低的容器使用场景.</p><p>​QVector的内存相关, 在使用QVector的时候, 如果使用QVector中的clear(), 可以清空容器中特定一个表中的内容, 但其所占的内存并没有释放, 需要释放内存需要使用shrink_to_fit()的方式, 或者使用squeeze()函数挤压释放冗余空间.</p><hr><h3 id="QList"><a href="#QList" class="headerlink" title="QList"></a>QList</h3><p>QList的本质是链表, 链表本质是指针链接起来的容器. 空间利用率高. 方便执行删除和插入操作, 它的优缺点和QVector可以说是刚好反过来, 省空间但不省时间, 遍历效率要低于顺序表. 但适合在数据量大的数据变更频次高的场景下使用.</p><hr><h3 id="QQueue"><a href="#QQueue" class="headerlink" title="QQueue"></a>QQueue</h3><p>QQueue继承自QList, 其本质也是链表. (待补充)</p>]]></content>
       
       
       
