@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Qt网络通信3 | 海潮</title><meta name="author" content="Ben"><meta name="copyright" content="Ben"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="网络接口在实际项目使用中不同于接口调试工具无所谓返回值, 实际项目中需要等待接口响应并对响应的内容进行处理. 因此在如何处理接口返回值在接口数量较多的情况下,  需要统一的模块化的处理. 1.首先是接口本身的设计, 如下: int getUserInfo(QString bedNumStr,QString &amp;response);  2.要解释设计思路要从返回参开始, 网络接口在完成调用后,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt网络通信3">
+<meta property="og:url" content="https://github.com/benwang717/benwang717.github.io.git/2024/09/15/Qt%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A13/index.html">
+<meta property="og:site_name" content="海潮">
+<meta property="og:description" content="网络接口在实际项目使用中不同于接口调试工具无所谓返回值, 实际项目中需要等待接口响应并对响应的内容进行处理. 因此在如何处理接口返回值在接口数量较多的情况下,  需要统一的模块化的处理. 1.首先是接口本身的设计, 如下: int getUserInfo(QString bedNumStr,QString &amp;response);  2.要解释设计思路要从返回参开始, 网络接口在完成调用后,">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-09-15T07:33:40.000Z">
+<meta property="article:modified_time" content="2024-10-28T03:21:21.929Z">
+<meta property="article:author" content="Ben">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Qt">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/configImgs/1083802.ico"><link rel="canonical" href="https://github.com/benwang717/benwang717.github.io.git/2024/09/15/Qt%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A13/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: {"appId":"0UCDPNGBG9","apiKey":"e78f8bba7951caddf73bf7ab19a4c6d3","indexName":"myBlog","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Qt网络通信3',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-10-28 11:21:21'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">51</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="海潮"><span class="site-name">海潮</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Qt网络通信3</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-15T07:33:40.000Z" title="发表于 2024-09-15 15:33:40">2024-09-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-10-28T03:21:21.929Z" title="更新于 2024-10-28 11:21:21">2024-10-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Qt网络通信3"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>网络接口在实际项目使用中不同于接口调试工具无所谓返回值, 实际项目中需要等待接口响应并对响应的内容进行处理. 因此在如何处理接口返回值在接口数量较多的情况下,  需要统一的模块化的处理.</p>
+<p>1.首先是接口本身的设计, 如下:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">getUserInfo</span><span class="params">(QString bedNumStr,QString &amp;response)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>2.要解释设计思路要从返回参开始, 网络接口在完成调用后, 通常会有几种状态, 它们分别为成功\超时\失败, 所以接口的返回参本身是一个状态标识符, 这个标识符标志着接口响应的状态, 通常会设计为以下类型:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">NetErrorCode</span>&#123;</span><br><span class="line">    NetSuccess,<span class="comment">///成功 0</span></span><br><span class="line">    NetTimeout,<span class="comment">///超时 1</span></span><br><span class="line">    NetErr	   <span class="comment">///失败 2</span></span><br><span class="line">&#125; ;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3.说完返回参, 接下来说明一下传参的定义, 对于传参通常有两种格式, 分别为有参响应和无参响应. 有参响应顾名思义需要在使用接口的时候传递必要参数, 就如同上述接口getUserInfo, 这里的必要参数就是”bedNumStr”, 当然也存在某些接口它并不函参, 只需要根据有无响应即可判定结果(类似登录响应接口).以下是有参接口的源码:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">NetworkThread::getUserInfo</span><span class="params">(QString bedNumStr, QString &amp;response)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> ret = NetErr;</span><br><span class="line">    QNetworkAccessManager netManager;</span><br><span class="line">    QNetworkRequest request;</span><br><span class="line">    request.<span class="built_in">setHeader</span>(QNetworkRequest::ContentTypeHeader, <span class="string">&quot;application/json&quot;</span>);</span><br><span class="line">    request.<span class="built_in">setAttribute</span>(QNetworkRequest::Attribute::SynchronousRequestAttribute, <span class="literal">true</span>);</span><br><span class="line">    request.<span class="built_in">setUrl</span>(<span class="built_in">QUrl</span>(<span class="built_in">QString</span>(<span class="string">&quot;http://&quot;</span> + p_Ip + <span class="string">&quot;:&quot;</span> + p_Port + <span class="string">&quot;/client/gmac/get_bed_user_info?BedNum=&quot;</span> + bedNumStr)));</span><br><span class="line">    QNetworkReply* reply = netManager.<span class="built_in">get</span>(request);</span><br><span class="line">    <span class="keyword">if</span> (reply-&gt;<span class="built_in">error</span>() != QNetworkReply::NoError) &#123;</span><br><span class="line">        <span class="comment">//处理中的错误信息</span></span><br><span class="line">        ret = NetTimeout;</span><br><span class="line">        QDBG <span class="string">&quot;reply error:&quot;</span> &lt;&lt; reply-&gt;<span class="built_in">errorString</span>();</span><br><span class="line">        <span class="type">const</span> QByteArray reply_data = reply-&gt;<span class="built_in">readAll</span>();</span><br><span class="line">        QDBG reply_data &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; QDateTime::<span class="built_in">currentDateTime</span>().<span class="built_in">toString</span>(<span class="string">&quot;yyyy-MM-dd hh:mm:ss.zzz&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        ret = NetSuccess;</span><br><span class="line">        <span class="type">const</span> QByteArray reply_data = reply-&gt;<span class="built_in">readAll</span>();</span><br><span class="line">        response = reply_data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    reply-&gt;<span class="built_in">deleteLater</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.以上代码中, bedNumStr作为必要参数, 查询对应bedNumStr下的返回信息. 返回值为接口的响应状态, 而response为接口响应的具体信息, 我们在调用接口的时候, 需要首先判定接口响应的状态, 根据接口响应的状态选择是否处理接口响应的信息, 因此这就引入了下一个问题, 接口如何调用? 参考如下代码:</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> resIndex;<span class="comment">///接口响应状态</span></span><br><span class="line">QString response;<span class="comment">///接口返回信息</span></span><br><span class="line">resIndex = NetworkThread::<span class="built_in">instance</span>()-&gt;<span class="built_in">getUserInfo</span>(m_modifyCurrentBedNum,response);</span><br><span class="line"><span class="keyword">if</span>(resIndex == NetSuccess)&#123;</span><br><span class="line">	QJsonArray jsonArr;</span><br><span class="line">    <span class="type">bool</span> jsonFlag = Utils::<span class="built_in">QStringToJsonArr</span>(response,jsonArr);<span class="comment">///接口信息类型转换</span></span><br><span class="line">    <span class="keyword">if</span>(jsonFlag)&#123;</span><br><span class="line">    	<span class="comment">///接口响应成功,处理...</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    	<span class="comment">///接口响应未成功,处理...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5.上述代码中需要重点几个点, 首先是NetworkThread::instance(), 参考之前文章: 单例模式2中, 对于需要多cpp调用的功能类接口的实例; 第二就是Utils::QStringToJsonArr(response,jsonArr),  这里需要着重说明一下, 这里是类型转换将QString类型转为了QJsonArr类型, 这里的重点不是这个功能接口函数, 而是Utils本身, 在项目中  我们通常习惯把需要再各个cpp里都需要用到的, 或者在同一个cpp里需要多次重复用到的功能逻辑包装成一个功能函数统一管理, 再调用的时候, 我们只需要声明功能函数即可. 那么回归到文章主题, “网络接口” , 顾名思义, 根据上述代码, 在接口成功响应后, 我们会收到一个返回信息response, 这个信息需要我们进行二次处理, 在网络线程类中(NetworkThread.h&#x2F;.cpp)我们只写接口. 至于接口的解析处理, 我们需要把它们统一写在 Utils.h&#x2F;.cpp中, 这样设计方便后期对接口的维护变更. 对于一些解析逻辑一致的接口, 我们也降低了代码的冗余. 类似以下写法:</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Utils</span> : <span class="keyword">public</span> QObject</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Utils</span>();</span><br><span class="line">    ~<span class="built_in">Utils</span>();</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">float</span> <span class="title">getDisplayScale</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> QByteArray <span class="title">toXOREncryptUncrypt</span><span class="params">(QByteArray &amp;src, <span class="type">const</span> QChar key)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> SinglePatient <span class="title">getSinglePatientData</span><span class="params">(QString filePath)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">static</span> PrintModelStruct <span class="title">read_PrintModelStructInfos</span><span class="params">(PrintingType type)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">bool</span> <span class="title">getLocalPrintOrientation</span><span class="params">(PrintingType printingType)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> SysConfigStruct <span class="title">getSysConfig</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">setSysConfig</span><span class="params">(SysConfigStruct sysConfig)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> QStringList <span class="title">initPrinter</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> QDateTime <span class="title">QStringToQDateTime</span><span class="params">(QString str)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">reboot</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">bool</span> <span class="title">QStringToJsonArr</span><span class="params">(<span class="type">const</span> QString&amp; strJson, QJsonArray&amp; jsonArr)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> QVector&lt;BedInfo&gt; <span class="title">parsesBedInfos</span><span class="params">(QJsonArray jsonArr)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> QVector&lt;TerminalInfo&gt; <span class="title">parsesTerminalInfos</span><span class="params">(QJsonArray jsonArr)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> QVector&lt;UserInfo&gt; <span class="title">parsesUserInfos</span><span class="params">(QJsonArray jsonArr)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> UserInfo <span class="title">parsesUserInfo</span><span class="params">(QJsonArray jsonArr)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> TerminalInfo <span class="title">parsesTerminalInfo</span><span class="params">(QJsonArray jsonArr)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> LastUpdateTimeInfo <span class="title">parsesLastUpdateTime</span><span class="params">(QJsonArray jsonArr)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> RealtimeInfo <span class="title">parsesRealtimeInfo</span><span class="params">(QJsonArray jsonArr)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> QVector&lt;RealtimeData&gt; <span class="title">parsesRealtimeData</span><span class="params">(QJsonArray jsonArr)</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">changePressUnitScale</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="type">static</span> QString <span class="title">convertTimestampToReadable</span><span class="params">(qint64 timestamp)</span></span>;</span><br><span class="line">    <span class="comment">/// static SinglePatient transForSinglePatientClass();</span></span><br><span class="line">    <span class="comment">// template&lt;typename T&gt;</span></span><br><span class="line">    <span class="comment">// QJsonArray parsesToolbox(QVector&lt;T&gt; ls);</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">static</span> QString g_OptFilesPath,g_obtPressUnit, g_port, g_ip;</span><br><span class="line">    <span class="type">static</span> <span class="type">bool</span> g_changedConnectFlag;</span><br><span class="line">    <span class="type">static</span> QChar g_secretKey;</span><br><span class="line">    <span class="type">static</span> <span class="type">float</span> g_pressUnitScale;<span class="comment">//压力单位转换系数</span></span><br><span class="line">    <span class="type">static</span> QString g_pressUnitStr;</span><br><span class="line">    <span class="type">static</span> QString g_fileSavePath;<span class="comment">//日志保存路径</span></span><br><span class="line">    <span class="type">static</span> PressUnit g_pressUnit;<span class="comment">//压力单位</span></span><br><span class="line">    <span class="type">static</span> QString g_hospitalInfo;<span class="comment">//医院信息</span></span><br><span class="line">    <span class="type">static</span> QString g_departmentInfo;<span class="comment">//科室信息</span></span><br><span class="line">    <span class="type">static</span> QString g_fileOpenPath;<span class="comment">//上一次文件打开的路径</span></span><br><span class="line">    <span class="type">static</span> QList&lt;HistoryFile&gt; g_historyFiles;<span class="comment">//历史文件</span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">static</span> QString m_configFilePath;</span><br><span class="line">    <span class="type">static</span> QChar m_secretKey;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://github.com/benwang717/benwang717.github.io.git">Ben</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://github.com/benwang717/benwang717.github.io.git/2024/09/15/Qt%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A13/">https://github.com/benwang717/benwang717.github.io.git/2024/09/15/Qt%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A13/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://github.com/benwang717/benwang717.github.io.git" target="_blank">海潮</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/C/">C++</a><a class="post-meta__tags" href="/tags/Qt/">Qt</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/10/28/%E7%AC%94%E8%AE%B0%E9%A2%84%E7%BD%97%E5%88%97%E3%80%90%E7%BD%AE%E9%A1%B6%E3%80%91/" title="笔记预罗列【置顶】"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">笔记预罗列【置顶】</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/15/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F2/" title="单例模式2"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">单例模式2</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/01/17/%E5%85%B3%E4%BA%8EQt%E4%B8%AD.pri%E6%96%87%E4%BB%B6/" title="关于Qt中.pri文件"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-17</div><div class="title">关于Qt中.pri文件</div></div></a></div><div><a href="/2023/01/17/%E5%85%B3%E4%BA%8EQt%E4%B8%AD.pro%E6%96%87%E4%BB%B6/" title="关于Qt中.pro文件"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-01-17</div><div class="title">关于Qt中.pro文件</div></div></a></div><div><a href="/2023/06/09/json%E6%8E%A5%E5%8F%A3%E8%A7%A3%E6%9E%90/" title="json接口解析"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-06-09</div><div class="title">json接口解析</div></div></a></div><div><a href="/2023/07/15/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="单例模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-07-15</div><div class="title">单例模式</div></div></a></div><div><a href="/2024/07/15/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F2/" title="单例模式2"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-15</div><div class="title">单例模式2</div></div></a></div><div><a href="/2024/06/28/%E7%A8%8B%E5%BA%8F%E5%8D%95%E5%BC%80/" title="程序单开"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-28</div><div class="title">程序单开</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ben</div><div class="author-info__description">如果我没更新,那很可能我没更新.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">47</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">51</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">V_V Я люблю тебя. V❤:_ben717</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/10/28/%E7%AC%94%E8%AE%B0%E9%A2%84%E7%BD%97%E5%88%97%E3%80%90%E7%BD%AE%E9%A1%B6%E3%80%91/" title="笔记预罗列【置顶】">笔记预罗列【置顶】</a><time datetime="2024-10-28T05:30:24.000Z" title="发表于 2024-10-28 13:30:24">2024-10-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/09/15/Qt%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A13/" title="Qt网络通信3">Qt网络通信3</a><time datetime="2024-09-15T07:33:40.000Z" title="发表于 2024-09-15 15:33:40">2024-09-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/07/15/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F2/" title="单例模式2">单例模式2</a><time datetime="2024-07-15T08:34:12.000Z" title="发表于 2024-07-15 16:34:12">2024-07-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/06/28/%E7%A8%8B%E5%BA%8F%E5%8D%95%E5%BC%80/" title="程序单开">程序单开</a><time datetime="2024-06-28T01:45:41.000Z" title="发表于 2024-06-28 09:45:41">2024-06-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/07/Qt%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AE%B9%E5%99%A8%E5%8F%8A%E5%85%B6%E7%89%B9%E5%BE%81/" title="Qt中常用的容器及其特征">Qt中常用的容器及其特征</a><time datetime="2024-05-07T01:54:47.000Z" title="发表于 2024-05-07 09:54:47">2024-05-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By Ben</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script></div></div></body></html>
